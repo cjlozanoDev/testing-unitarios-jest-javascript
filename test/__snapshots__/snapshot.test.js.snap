@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot Prueba de snapshot 1`] = `
+Object {
+  "active": true,
+  "id": 1,
+  "latitude": "3.5645543",
+  "longitude": "40.232332",
+}
+`;
+
+exports[`Snapshot Simular UI 1`] = `
+Object {
+  "link": "<a href='https://www.google.es' class='button'>Enlace</a>",
+}
+`;

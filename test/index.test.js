@@ -1,4 +1,4 @@
-import { sumar, restar, multiplicar, dividir, isFalse, isNull, isTrue, isUndefined , arrDias, arrProvincias, objExpReg} from '../index.js'
+import { sumar, restar, multiplicar, dividir, isFalse, isNull, isTrue, isUndefined , arrDias, arrProvincias, objExpReg, callback, ajaxGet} from '../index.js'
 
 describe('Operaciones matemáticas', () => {
   test('Realizamos la suma', () => {
@@ -88,4 +88,55 @@ describe('Matchers Strings', () => {
   test('Comprobamos número de teléfono',() => {
     expect(exp.telefono).toMatch(/^[9|6|7][0-9]{8}$/)
   })
+})
+
+// afterEach(() => console.log('Despues de cada prueba'));
+// afterAll(() => console.log("Despues de todas las pruebas"));
+// beforeEach(() => console.log('Antes de cada prueba'));
+// beforeAll(() => console.log('Antes de todas las pruebas'));
+
+describe('Asincrono - Callback', () => {
+  test('Callback', done => {
+    let callbackInterno = datos => {
+      expect(datos).toBe('Hola mundo callback')
+      done()
+    }
+    callback(callbackInterno)
+  })
+})
+
+describe('Asíncrono - Promise(resolve, reject', () => {
+  test('Promise- Promise(resolve, reject)', done => {
+    let url = 'http://localhost:3000/posts'
+    ajaxGet(url).then(datos => {
+      const data = [{ "id": 1, "title": "json-server", "author": "typicode" }];
+      expect(datos.length).toBeGreaterThanOrEqual(1);
+      expect(datos[0].id).toBeGreaterThanOrEqual(1);
+      expect(datos).toEqual(data);
+      done();
+    })
+  })
+})
+
+describe('Asíncrono usando async / await', () => {
+  test('Probando asynx / await - OK', async () => {
+    const postAPI = 'http://localhost:3000/posts'
+    const commentsAPI = 'http://localhost:3000/comments'
+
+    const post = await ajaxGet(postAPI)
+    const comments = await ajaxGet(commentsAPI)
+
+    expect(post.length).toBeGreaterThanOrEqual(1);
+    expect(post[0].id).toBe(1);
+    expect(comments.length).toBeGreaterThanOrEqual(1);
+    expect(comments[0].body).toBe("some comment");
+  })
+  test('Probando async / await - FAIL', async () => {
+    const failAPI = 'http://localhost:3000/fail';
+    await expect(ajaxGet(failAPI)).rejects.toEqual('Not Found');
+  });
+  test('async / await - rejects & resolves', async () => {
+    await expect(Promise.resolve({ response: 'Correcto' })).resolves.toEqual({ response: 'Correcto' });
+    await expect(Promise.reject({ errorCode: 500, errorText: 'Not ready' })).rejects.toEqual({ errorCode: 500, errorText: 'Not ready' });
+  });
 })
