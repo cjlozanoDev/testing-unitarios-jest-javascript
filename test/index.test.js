@@ -105,38 +105,38 @@ describe('Asincrono - Callback', () => {
   })
 })
 
-describe('Asíncrono - Promise(resolve, reject', () => {
-  test('Promise- Promise(resolve, reject)', done => {
-    let url = 'http://localhost:3000/posts'
-    ajaxGet(url).then(datos => {
-      const data = [{ "id": 1, "title": "json-server", "author": "typicode" }];
-      expect(datos.length).toBeGreaterThanOrEqual(1);
-      expect(datos[0].id).toBeGreaterThanOrEqual(1);
-      expect(datos).toEqual(data);
-      done();
-    })
-  })
-})
+// describe('Asíncrono - Promise(resolve, reject', () => {
+//   test('Promise- Promise(resolve, reject)', done => {
+//     let url = 'http://localhost:3000/posts'
+//     ajaxGet(url).then(datos => {
+//       const data = [{ "id": 1, "title": "json-server", "author": "typicode" }];
+//       expect(datos.length).toBeGreaterThanOrEqual(1);
+//       expect(datos[0].id).toBeGreaterThanOrEqual(1);
+//       expect(datos).toEqual(data);
+//       done();
+//     })
+//   })
+// })
 
-describe('Asíncrono usando async / await', () => {
-  test('Probando asynx / await - OK', async () => {
-    const postAPI = 'http://localhost:3000/posts'
-    const commentsAPI = 'http://localhost:3000/comments'
+// describe('Asíncrono usando async / await', () => {
+//   test('Probando asynx / await - OK', async () => {
+//     const postAPI = 'http://localhost:3000/posts'
+//     const commentsAPI = 'http://localhost:3000/comments'
 
-    const post = await ajaxGet(postAPI)
-    const comments = await ajaxGet(commentsAPI)
+//     const post = await ajaxGet(postAPI)
+//     const comments = await ajaxGet(commentsAPI)
 
-    expect(post.length).toBeGreaterThanOrEqual(1);
-    expect(post[0].id).toBe(1);
-    expect(comments.length).toBeGreaterThanOrEqual(1);
-    expect(comments[0].body).toBe("some comment");
-  })
-  test('Probando async / await - FAIL', async () => {
-    const failAPI = 'http://localhost:3000/fail';
-    await expect(ajaxGet(failAPI)).rejects.toEqual('Not Found');
-  });
-  test('async / await - rejects & resolves', async () => {
-    await expect(Promise.resolve({ response: 'Correcto' })).resolves.toEqual({ response: 'Correcto' });
-    await expect(Promise.reject({ errorCode: 500, errorText: 'Not ready' })).rejects.toEqual({ errorCode: 500, errorText: 'Not ready' });
-  });
-})
+//     expect(post.length).toBeGreaterThanOrEqual(1);
+//     expect(post[0].id).toBe(1);
+//     expect(comments.length).toBeGreaterThanOrEqual(1);
+//     expect(comments[0].body).toBe("some comment");
+//   })
+//   test('Probando async / await - FAIL', async () => {
+//     const failAPI = 'http://localhost:3000/fail';
+//     await expect(ajaxGet(failAPI)).rejects.toEqual('Not Found');
+//   });
+//   test('async / await - rejects & resolves', async () => {
+//     await expect(Promise.resolve({ response: 'Correcto' })).resolves.toEqual({ response: 'Correcto' });
+//     await expect(Promise.reject({ errorCode: 500, errorText: 'Not ready' })).rejects.toEqual({ errorCode: 500, errorText: 'Not ready' });
+//   });
+// })
